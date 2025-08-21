@@ -42,9 +42,9 @@ Developed with **Vite + React + Material UI (frontend)** and **Node.js + Express
 - **Email:** `admin@example.com`  
 - **Password:** `admin123`  
 
-## 👨‍💻 Author
+##  Author
 
 - **Rahul Shet**  
-- 📧 rahulushet@gmail.com  
+-  rahulushet@gmail.com  
  
 
