@@ -1,4 +1,4 @@
-# AGV Warehouse Platform (Assignment-Ready)
+# AGV Warehouse Platform (Delhivery Assignment)
 
 Full-stack app for warehouse AGV management using **Vite + React + Material UI** (frontend) and **Node.js + Express + MySQL** (backend).
 
