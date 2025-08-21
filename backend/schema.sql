@@ -1,0 +1,47 @@
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(120) UNIQUE NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS robots (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  robot_id VARCHAR(64) UNIQUE NOT NULL,
+  location VARCHAR(64) DEFAULT 'Dock',
+  status ENUM('idle','busy','charging','offline') DEFAULT 'idle',
+  battery_level INT DEFAULT 100,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS inventory (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  item_name VARCHAR(120) NOT NULL,
+  location VARCHAR(64) NOT NULL,
+  quantity INT DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  description VARCHAR(255) NOT NULL,
+  item_id INT NULL,
+  from_location VARCHAR(64) NOT NULL,
+  to_station VARCHAR(64) NOT NULL,
+  status ENUM('pending','assigned','in_progress','completed','failed') DEFAULT 'pending',
+  robot_assigned INT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (item_id) REFERENCES inventory(id) ON DELETE SET NULL,
+  FOREIGN KEY (robot_assigned) REFERENCES robots(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS audit_logs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NULL,
+  action VARCHAR(32) NOT NULL,
+  entity_type VARCHAR(32) NOT NULL,
+  entity_id INT NULL,
+  payload JSON NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
